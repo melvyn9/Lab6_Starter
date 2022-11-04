@@ -24,6 +24,9 @@ function getRecipesFromStorage() {
   // A9. TODO - Complete the functionality as described in this function
   //           header. It is possible in only a single line, but should
   //           be no more than a few lines.
+  if (localStorage.getItem('recipes') === null) {
+    return [];
+  }
   let myData = JSON.parse(window.localStorage.getItem('recipes'));
   return myData;
 }
@@ -86,6 +89,7 @@ function initFormHandler() {
     for (const pair of formData.entries()) {
       recipeObject[`${pair[0]}`] = `${pair[1]}`;
     }
+
     // B6. TODO - Create a new <recipe-card> element
     let myRecipeCard = document.createElement('recipe-card');
 
@@ -97,7 +101,7 @@ function initFormHandler() {
 
     // B9. TODO - Get the recipes array from localStorage, add this new recipe to it, and
     //            then save the recipes array back to localStorage
-    let myRecipeLocal = JSON.parse(localStorage.getItem('recipes'));
+    let myRecipeLocal = getRecipesFromStorage();
     myRecipeLocal.push(recipeObject);
     localStorage.setItem('recipes', JSON.stringify(myRecipeLocal));
   });
